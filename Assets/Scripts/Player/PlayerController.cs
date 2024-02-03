@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     private Character player;
     private PlayerState playerStateChecker;
+    private PlayerState playerState;
 
     [SerializeField]
     private ViewPoint viewPoint;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         player = GetComponent<Character>();
+        playerState = GetComponent<PlayerState>();
 
         viewPoint.InitCamera(followingTarget);
     }
@@ -31,31 +33,48 @@ public class PlayerController : MonoBehaviour
     {
         UpdateMovementInput();
         //UpdateStateInput();
+        // 更新角色的旋转以匹配视角的偏航角
+        player.RotateCharacter(viewPoint.Yaw);
+
 
 
     }
 
-    //角色操作输入
+    //角色移动输入
     private void UpdateMovementInput()
     {
-        //旋转参数
+        //rotation input data
         Quaternion rot = Quaternion.Euler(0, viewPoint.Yaw, 0);
 
-        //移动
-        player.SetMovementInput(rot * Vector3.forward * Input.GetAxis("Vertical") +
-                                rot * Vector3.right * Input.GetAxis("Horizontal"));
-
-        //上升
-        if (Input.GetKey(KeyCode.Space))
+        //move
+        if (!playerState.GivePushForce)
         {
-
-            player.RiseUp();
+            player.SetMovementInput(rot * Vector3.forward * Input.GetAxis("Vertical") +
+                                    rot * Vector3.right * Input.GetAxis("Horizontal"));
+        }
+        else
+        {
+            player.SetMovementInput(rot * Vector3.forward * playerState.ForwardForce +
+                                  rot * Vector3.right * Input.GetAxis("Horizontal"));
         }
 
-        //todo 摄像机旋转和抬升
-
-
-
+        //up
+        if (!playerState.GiveUpForce)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                player.RiseUp();
+            }
+        }
+        else
+        {
+            player.FlyInAir(player, playerState.targetHeight, playerState.heightAdjustmentForce);
+        }
+        
+        //update camera move
+        viewPoint.UpdateRotation();
+        viewPoint.UpdatePosition();
+        
     }
 
     //角色状态输入

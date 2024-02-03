@@ -27,11 +27,12 @@ public class ViewPoint : MonoBehaviour
     {
 
     }
+
     //删
     void Update()
     {
-        UpdateRotation();
-        UpdatePosition();
+       //UpdateRotation();
+       // UpdatePosition();
     }
 
 
@@ -45,7 +46,7 @@ public class ViewPoint : MonoBehaviour
 
 
     //更新视角旋转
-    private void UpdateRotation()
+    public void UpdateRotation()
     {
         //鼠标控制
         Yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -62,7 +63,7 @@ public class ViewPoint : MonoBehaviour
     }
 
    
-    private void UpdatePosition()
+    public void UpdatePosition()
     {
         Vector3 position = Target.position;
         //动态跟随(Y轴)
