@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BaseEnemy : MonoBehaviour
+{
+    public float speed;
+    public Mesh mesh;
+    public string type;
+    public GameObject target;
+
+    protected virtual void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+    }
+
+    protected virtual void Spawn()
+    {
+        
+    }
+
+    public virtual void OnDead()
+    {
+        //todo 摧毁逻辑
+        Destroy(gameObject);
+    }
+
+    public virtual void ApplyEffect()
+    {
+       
+    }
+
+    public virtual void AttackTimeCheck()
+    {
+        
+    }
+}
