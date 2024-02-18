@@ -7,9 +7,9 @@ using UnityEngine;
 public class ViewPoint : MonoBehaviour
 {
     //抬升(x轴)
-    public float Pitch { get; private set; }
+    //public float Pitch { get; private set; }
     //环视(y轴)
-    public float Yaw { get; private set; }
+    //public float Yaw { get; private set; }
 
     //鼠标灵敏
     public float mouseSensitivity = 5;
@@ -43,23 +43,21 @@ public class ViewPoint : MonoBehaviour
         transform.position = target.position;
     }
 
-
-
     //更新视角旋转
-    public void UpdateRotation()
+    public void UpdateRotation(float i_Yaw, float i_Pitch)
     {
-        //鼠标控制
-        Yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
-        Pitch += Input.GetAxis("Mouse Y") * mouseSensitivity * -1;//乘-1翻转y轴旋转
+        // 计算灵敏度
+        i_Yaw *= mouseSensitivity;
+        i_Pitch *= mouseSensitivity * -1;//乘-1翻转y轴旋转
         //手柄控制
-        Yaw += Input.GetAxis("CameraRateX") * cameraRotatingSpeed * Time.deltaTime;
-        Pitch += Input.GetAxis("CameraRateY") * cameraRotatingSpeed * Time.deltaTime;
+        //Yaw += Input.GetAxis("CameraRateX") * cameraRotatingSpeed * Time.deltaTime;
+        //Pitch += Input.GetAxis("CameraRateY") * cameraRotatingSpeed * Time.deltaTime;
         //抬升视角限制
-        Pitch = Mathf.Clamp(Pitch, 0, 45);
+        i_Pitch = Mathf.Clamp(i_Pitch, 0, 45);
         //水平视角限制
-        Yaw = Math.Clamp(Yaw, -30, 30);
+        i_Yaw = Math.Clamp(i_Yaw, -30, 30);
 
-        transform.rotation = Quaternion.Euler(Pitch, Yaw, 0);
+        transform.rotation = Quaternion.Euler(i_Pitch, i_Yaw, 0);
     }
 
    

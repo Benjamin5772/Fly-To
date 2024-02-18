@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState : MonoBehaviour
+public class PlayerState
 {
-
-
-  
     // move data
     public float MaxWalkSpeed = 5;
 
@@ -22,30 +19,20 @@ public class PlayerState : MonoBehaviour
     public bool GivePushForce = false;
     public float ForwardForce = 0.2f;
 
-
-
-
-    private void Awake()
-    {
-       
-    }
-
-    private void Update()
-    {
- 
-    }
+    // 血量
+    //TODO
 
     public void CheckState()
     {
 
     }
 
-    private void Hurt()
+    public void Hurt()
     {
 
     }
 
-    private void SpeedUp()
+    public void SpeedUp()
     {
 
     }

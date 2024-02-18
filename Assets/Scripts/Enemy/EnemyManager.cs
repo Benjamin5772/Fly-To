@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -10,6 +10,10 @@ public class EnemyManager : MonoBehaviour
     public float spawnHeight = 2f; // vertical distance
     public GameObject player; // player
 
+    private BaseEnemy[] enemies;
+
+    private bool IsSpawnEnemy = true;
+
     private void Start()
     {
         StartCoroutine(SpawnEnemy());
@@ -17,9 +21,9 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        while (true)
+        while (IsSpawnEnemy)
         {
-            // ��������λ��
+            // ¼ÆËãÉú³ÉÎ»ÖÃ
             Vector3 forwardOffset = player.transform.forward * spawnDistance;
             float randomWidthOffset = Random.Range(-spawnWidth, spawnWidth);
             Vector3 widthOffset = player.transform.right * randomWidthOffset;
@@ -38,5 +42,24 @@ public class EnemyManager : MonoBehaviour
 
             yield return new WaitForSeconds(spawnInterval);
         }
+    }
+
+    public void CallSpawnEnemy()
+    {
+        // 随机prefab
+        // 读取玩家位置
+        // spawn
+    }
+
+    //private GameObject SpawnEnemy(enemyPrefab, spawnPos, Quaternion.LookRotation(-forwardOffset))
+    //{
+    //GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.LookRotation(-forwardOffset));
+    // 将新生成的enemy放到enemies里面
+    //return ;
+    //}
+
+    public void Cleaup()
+    {
+        // 销毁所有的enemies
     }
 }

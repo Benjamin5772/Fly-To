@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Character : MonoBehaviour
+public class Character
 {
     private Rigidbody playerRigidbody;
     private PlayerState playerState;
@@ -12,17 +13,29 @@ public class Character : MonoBehaviour
     //获取输入
     public Vector3 CurrentInput { get; private set; }
  
-    private void Awake()
+    public void Init(Rigidbody i_Rig, PlayerState i_PS)
     {
-        playerRigidbody = GetComponent<Rigidbody>();
-        playerState  = GetComponent<PlayerState>();
+        playerRigidbody = i_Rig;
+        playerState = i_PS;
     }
 
-    private void FixedUpdate()
+    //private void Awake()
+    //{
+    //playerRigidbody = GetComponent<Rigidbody>();
+    //playerState  = GetComponent<PlayerState>();
+    //}
+
+    public void MoveUpdate()
     {
         //移动到playercontroller
         Move();
     }
+
+    /*private void FixedUpdate()
+    {
+        //移动到playercontroller
+        Move();
+    }*/
 
     public void SetMovementInput(Vector3 input)
     {
@@ -47,17 +60,17 @@ public class Character : MonoBehaviour
     }
 
 
-    public void FlyInAir(Character player,float targetHeight,float heightAdjustmentForce)
+    public void FlyInAir(Transform playerTrans,float targetHeight,float heightAdjustmentForce)
     {
         // 计算上升力
-        float heightDifference = targetHeight - player.transform.position.y;  // 计算高度差
-        float upForce = 9.81f * player.GetComponent<Rigidbody>().mass;  // 基础漂浮力，抵消重力
+        float heightDifference = targetHeight - playerTrans.transform.position.y;  // 计算高度差
+        float upForce = 9.81f * playerRigidbody.mass;  // 基础漂浮力，抵消重力
 
         // 根据高度差调整额外的力，简单的P控制器
         float adjustmentForce = heightDifference * heightAdjustmentForce;
 
         // 应用总力
-        player.GetComponent<Rigidbody>().AddForce(Vector3.up * (upForce + adjustmentForce));
+        playerRigidbody.AddForce(Vector3.up * (upForce + adjustmentForce));
     }
 
 

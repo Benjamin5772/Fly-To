@@ -5,9 +5,12 @@ using UnityEngine;
 public class BaseEnemy : MonoBehaviour
 {
     public float speed;
-    public Mesh mesh;
+    public Mesh mesh; // delete
     public string type;
     public GameObject target;
+
+    //碰撞检测
+    //TODO
 
     protected virtual void Move()
     {
