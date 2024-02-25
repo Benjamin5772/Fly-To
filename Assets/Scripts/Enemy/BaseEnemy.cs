@@ -14,7 +14,7 @@ public class BaseEnemy : MonoBehaviour
 
     protected virtual void Move()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+      
     }
 
     protected virtual void Spawn()

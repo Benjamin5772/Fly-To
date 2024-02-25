@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Character
+public class Character 
 {
     private Rigidbody playerRigidbody;
     private PlayerState playerState;
@@ -19,23 +19,13 @@ public class Character
         playerState = i_PS;
     }
 
-    //private void Awake()
-    //{
-    //playerRigidbody = GetComponent<Rigidbody>();
-    //playerState  = GetComponent<PlayerState>();
-    //}
-
     public void MoveUpdate()
     {
         //移动到playercontroller
         Move();
     }
 
-    /*private void FixedUpdate()
-    {
-        //移动到playercontroller
-        Move();
-    }*/
+ 
 
     public void SetMovementInput(Vector3 input)
     {
@@ -57,6 +47,7 @@ public class Character
         Vector3 upForce = playerState.RiseUpDirection * upForceStrength;
 
         playerRigidbody.AddForce(upForce);
+
     }
 
 

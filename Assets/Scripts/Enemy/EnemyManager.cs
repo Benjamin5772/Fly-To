@@ -1,65 +1,73 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject enemyPrefab; // enemy
-    public float spawnInterval = 5f; //  spawn cd
-    public float spawnDistance = 10f; // horizontal distance
-    public float spawnWidth = 5f; // horizontal width
-    public float spawnHeight = 2f; // vertical distance
-    public GameObject player; // player
+    public GameObject enemyPrefab;
+    public float spawnInterval = 5f;
+    public float spawnDistance = 10f;
+    public float spawnWidth = 5f;
+    public float spawnHeight = 2f;
+    public GameObject player;
 
-    private BaseEnemy[] enemies;
+    private List<GameObject> enemies = new List<GameObject>();
 
-    private bool IsSpawnEnemy = true;
+    private bool isSpawnEnemy = true;
 
     private void Start()
     {
-        StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnEnemyRoutine());
     }
 
-    private IEnumerator SpawnEnemy()
+    private IEnumerator SpawnEnemyRoutine()
     {
-        while (IsSpawnEnemy)
+        while (isSpawnEnemy)
         {
-            // ¼ÆËãÉú³ÉÎ»ÖÃ
-            Vector3 forwardOffset = player.transform.forward * spawnDistance;
-            float randomWidthOffset = Random.Range(-spawnWidth, spawnWidth);
-            Vector3 widthOffset = player.transform.right * randomWidthOffset;
-            Vector3 heightOffset = new Vector3(0, spawnHeight, 0);
-
-            //final pos
-            Vector3 spawnPos = player.transform.position + forwardOffset + widthOffset + heightOffset;
-
- 
-            GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.LookRotation(-forwardOffset));
-            BaseEnemy enemyScript = enemy.GetComponent<BaseEnemy>();
-            if (enemyScript != null)
-            {
-                enemyScript.target = player; 
-            }
-
+            CallSpawnEnemy();
             yield return new WaitForSeconds(spawnInterval);
         }
     }
 
     public void CallSpawnEnemy()
     {
-        // 随机prefab
-        // 读取玩家位置
-        // spawn
+        Vector3 spawnPos = CalculateSpawnPosition();
+        GameObject enemy = InstantiateEnemy(spawnPos);
+        enemies.Add(enemy); 
     }
 
-    //private GameObject SpawnEnemy(enemyPrefab, spawnPos, Quaternion.LookRotation(-forwardOffset))
-    //{
-    //GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.LookRotation(-forwardOffset));
-    // 将新生成的enemy放到enemies里面
-    //return ;
-    //}
-
+    //计算位置
+    private Vector3 CalculateSpawnPosition()
+    {
+        Vector3 forwardOffset = player.transform.forward * spawnDistance;
+        float randomWidthOffset = Random.Range(-spawnWidth, spawnWidth);
+        Vector3 widthOffset = player.transform.right * randomWidthOffset;
+        Vector3 heightOffset = new Vector3(0, spawnHeight, 0);
+        Vector3 spawnPos = player.transform.position + forwardOffset + widthOffset + heightOffset;
+        return spawnPos;
+    }
+    
+    //生成敌人
+    private GameObject InstantiateEnemy(Vector3 spawnPos)
+    {
+        Vector3 forwardOffset = player.transform.position - spawnPos;
+        GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.LookRotation(forwardOffset));
+        BaseEnemy enemyScript = enemy.GetComponent<BaseEnemy>();
+        if (enemyScript != null)
+        {
+            enemyScript.target = player;
+        }
+        return enemy;
+    }
+    //清除敌人
     public void Cleaup()
     {
-        // 销毁所有的enemies
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+        enemies.Clear(); 
     }
 }
+
