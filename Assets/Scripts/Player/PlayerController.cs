@@ -6,9 +6,9 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    private Character player;
+    private Character player = new Character();
     private PlayerState playerStateChecker;
-    private PlayerState playerState;
+    private PlayerState playerState = new PlayerState();
 
     private Transform m_Transform;
 
@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        player = GetComponent<Character>();
-        playerState = GetComponent<PlayerState>();
+        //player = GetComponent<Character>();
+        //playerState = GetComponent<PlayerState>();
         viewPoint.InitCamera(followingTarget);
         m_Transform = GetComponent<Transform>();
 

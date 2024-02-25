@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+// 记得改成singleton
 public class EnemyManager : MonoBehaviour
 {
     public GameObject enemyPrefab;

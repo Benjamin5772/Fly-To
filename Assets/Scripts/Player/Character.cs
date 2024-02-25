@@ -1,14 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Character 
+public class Character
 {
     private Rigidbody playerRigidbody;
     private PlayerState playerState;
+
+    // VFX
+    // TODO
 
     //获取输入
     public Vector3 CurrentInput { get; private set; }
@@ -72,5 +76,10 @@ public class Character
         playerRigidbody.MoveRotation(rotation);
     }
 
+
+    //public void ApplyEffect(i_EffectType Effect_Type)
+    //
+
+    //}
 
 }
