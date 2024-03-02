@@ -16,6 +16,6 @@ public class BaseWidget : MonoBehaviour
         
     }
 
-    public void ShowWidget() { }
-    public void HideWidget() { }
+    public void ShowWidget() { gameObject.SetActive(true); }
+    public void HideWidget() { gameObject.SetActive(false); }
 }

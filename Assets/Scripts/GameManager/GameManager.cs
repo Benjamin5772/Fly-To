@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     {
         //所有manager的init
         HUDController.Init();
+
     }
 
     public void OnGameStart()
