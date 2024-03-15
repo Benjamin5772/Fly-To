@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
 
     private Transform m_Transform;
 
-    [SerializeField]
-    private ViewPoint viewPoint;
 
     [SerializeField] private Transform followingTarget;
 
@@ -25,9 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        //player = GetComponent<Character>();
-        //playerState = GetComponent<PlayerState>();
-        viewPoint.InitCamera(followingTarget);
+ 
         m_Transform = GetComponent<Transform>();
 
         Rigidbody playerRigidbody = GetComponent<Rigidbody>();
@@ -53,9 +49,6 @@ public class PlayerController : MonoBehaviour
         // 更新角色的旋转以匹配视角的偏航角
         player.RotateCharacter(Yaw);
 
-        //update camera move
-        viewPoint.UpdateRotation(Yaw, Pitch);
-        viewPoint.UpdatePosition();
     }
 
     //角色移动输入
