@@ -12,7 +12,7 @@ public class PlayerState
     public Vector3 RiseUpDirection = Vector3.up; // 风向
     public float MinUpForce = 2; // 上升最小力量(手动)
     public float MaxUpForce = 4; // 上升最大力量(手动)
-    public float targetHeight = 0.7f;//目标高度（自动）
+    public float targetHeight = 1.4f;//目标高度（自动）
     public float heightAdjustmentForce = 1f;//高度调整（自动）
 
     // forward force
