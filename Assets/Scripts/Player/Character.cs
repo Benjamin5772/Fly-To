@@ -34,14 +34,18 @@ public class Character
     public void SetMovementInput(Vector3 input)
     {
         //输入限制到1
-        CurrentInput = Vector3.ClampMagnitude(input, 1);
+        CurrentInput = Vector3.ClampMagnitude(input,1);
     }
 
     
     public void Move()
     {
         //将rb移动到目标位置
-        playerRigidbody.MovePosition(playerRigidbody.position + CurrentInput * playerState.MaxWalkSpeed * Time.fixedDeltaTime);
+        //playerRigidbody.MovePosition(playerRigidbody.position + CurrentInput * playerState.MaxWalkSpeed * Time.fixedDeltaTime);
+
+        // 对移动逻辑进行修改，确保在世界空间中移动
+        Vector3 movement = CurrentInput * playerState.MaxWalkSpeed * Time.fixedDeltaTime;
+        playerRigidbody.MovePosition(playerRigidbody.position + movement);
     }
 
     public void RiseUp()
