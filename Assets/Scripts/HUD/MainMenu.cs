@@ -8,11 +8,14 @@ public class MainMenu : BaseWidget
     // 当点下这个按钮之后，调用开始游戏的接口
 
     public Camera mainMenuCamera;
+    public GameObject rotatingObject; // 需要旋转的游戏物体
     public float screenMoveSpeed = 1.0f;
     public float cameraMoveTime = 1.5f;
 
-    public GameObject gameStartUI; 
-    public GameObject inGameUI; 
+    public Vector3 rotationAngle = new Vector3(0, 90, 0); // 可调的旋转角度
+
+    public GameObject gameStartUI;
+    public GameObject inGameUI;
 
     // Start is called before the first frame update
     void Start()
@@ -25,17 +28,22 @@ public class MainMenu : BaseWidget
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void OnGameStartButtonClicked() 
+    public void OnGameStartButtonClicked()
     {
         // 通知Gamemanager开始游戏
         // TODO
 
-        
+
         //旋转摄像机
         StartCoroutine(RotateAndMoveCamera());
+        //旋转物体
+        if (rotatingObject != null)
+        {
+            StartCoroutine(RotateObject(rotatingObject, rotationAngle, cameraMoveTime));
+        }
 
         if (gameStartUI != null) gameStartUI.SetActive(false);
         StartCoroutine(SwitchUIAfterDelay());
@@ -74,6 +82,23 @@ public class MainMenu : BaseWidget
             mainMenuCamera.transform.Translate(Vector3.forward * Time.deltaTime * screenMoveSpeed, Space.World);
             yield return null;
         }
+
+    }
+
+    private IEnumerator RotateObject(GameObject obj, Vector3 angle, float duration)
+    {
+        Quaternion originalRotation = obj.transform.rotation;
+        Quaternion targetRotation = Quaternion.Euler(obj.transform.eulerAngles + angle);
+
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            obj.transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        obj.transform.rotation = targetRotation;
     }
 
 }

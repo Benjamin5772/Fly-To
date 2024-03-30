@@ -16,8 +16,8 @@ public class PlayerState
     public float heightAdjustmentForce = 1f;//高度调整（自动）
 
     // forward force
-    public bool GivePushForce = false ;
-    public float ForwardForce = 0.2f;
+    public bool GivePushForce = true ;
+    public float ForwardForce = 0.01f;
 
     // 血量
     // TODO
