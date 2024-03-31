@@ -9,6 +9,7 @@ public class MainMenu : BaseWidget
 
     public Camera mainMenuCamera;
     public GameObject rotatingObject; // 需要旋转的游戏物体
+    public PlayerState playerState = new PlayerState();// Add reference to PlayerState
     public float screenMoveSpeed = 1.0f;
     public float cameraMoveTime = 1.5f;
 
@@ -23,9 +24,10 @@ public class MainMenu : BaseWidget
 
         if (gameStartUI != null) gameStartUI.SetActive(true);
         if (inGameUI != null) inGameUI.SetActive(false);
+       
+      
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -35,6 +37,10 @@ public class MainMenu : BaseWidget
     {
         // 通知Gamemanager开始游戏
         // TODO
+        if (playerState != null)
+        {
+            playerState.GivePushForce = true;
+        }
 
 
         //旋转摄像机
@@ -49,12 +55,12 @@ public class MainMenu : BaseWidget
         StartCoroutine(SwitchUIAfterDelay());
     }
 
-    // 隐藏开始界面，展示游戏内ui
-    private IEnumerator SwitchUIAfterDelay()
-    {
+    // 隐藏开始界面，打开游戏内ui
+      private IEnumerator SwitchUIAfterDelay()
+     {
         yield return new WaitForSeconds(cameraMoveTime);
         if (inGameUI != null) inGameUI.SetActive(true);
-    }
+     }
 
 
     private IEnumerator RotateAndMoveCamera()
@@ -65,11 +71,14 @@ public class MainMenu : BaseWidget
         float elapsedTime = 0f;
         float duration = cameraMoveTime; // 旋转持续时间
 
+        Vector3 rotationCenter = rotatingObject != null ? rotatingObject.transform.position : Vector3.zero;
+     
+        float rotationAmount = rotationAngle.y / cameraMoveTime;
+
         // 旋转过程
         while (elapsedTime < duration)
         {
-            float fraction = elapsedTime / duration;
-            mainMenuCamera.transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, fraction);
+            mainMenuCamera.transform.RotateAround(rotationCenter, Vector3.up, rotationAmount * Time.deltaTime);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -84,7 +93,7 @@ public class MainMenu : BaseWidget
         }
 
     }
-
+    // 旋转物体
     private IEnumerator RotateObject(GameObject obj, Vector3 angle, float duration)
     {
         Quaternion originalRotation = obj.transform.rotation;
