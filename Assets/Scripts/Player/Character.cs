@@ -13,6 +13,8 @@ public class Character : MonoBehaviour
 
     // VFX
     // TODO
+    public float moveRangeX = 5.0f;  // x轴方向的移动范围
+    public float moveRangeY = 3.0f;  // y轴方向的移动范围
 
     //获取输入
     public Vector3 CurrentInput { get; private set; }
@@ -23,6 +25,7 @@ public class Character : MonoBehaviour
     {
         playerRigidbody = i_Rig;
         playerState = i_PS;
+
     }
 
     public void MoveUpdate()
@@ -30,6 +33,7 @@ public class Character : MonoBehaviour
         //移动到playercontroller
         Move();
     }
+
 
  
 
@@ -42,19 +46,15 @@ public class Character : MonoBehaviour
     
     public void Move()
     {
-        //将rb移动到目标位置
-       // playerRigidbody.MovePosition(playerRigidbody.position + CurrentInput * playerState.MaxWalkSpeed * Time.fixedDeltaTime);
-
-        // 对移动逻辑进行修改，确保在世界空间中移动
         Vector3 movement = CurrentInput * playerState.MaxWalkSpeed * Time.fixedDeltaTime;
-        playerRigidbody.MovePosition(playerRigidbody.position + movement);
+        Vector3 newPosition = playerRigidbody.position + movement;
 
-        //Vector3 movement = CurrentInput * playerState.MaxWalkSpeed * Time.fixedDeltaTime;
-       // Vector3 newPosition = playerRigidbody.position + movement;
-        // 检查并限制角色的新位置，防止其超出摄像机视野
-       // newPosition = RestrictWithinCameraBounds(newPosition, mainCamera);
+        // 限制新位置不超过设定范围
+        newPosition.x = Mathf.Clamp(newPosition.x, -moveRangeX, moveRangeX);
+        newPosition.y = Mathf.Clamp(newPosition.y, -moveRangeY, moveRangeY);
 
-       // playerRigidbody.MovePosition(newPosition);
+        playerRigidbody.MovePosition(newPosition);
+
     }
 
     public void RiseUp()
@@ -95,15 +95,15 @@ public class Character : MonoBehaviour
 
     //}
 
-    private Vector3 RestrictWithinCameraBounds(Vector3 targetPosition, Camera camera)
+
+    void OnDrawGizmos()
     {
-        Vector3 screenPoint = camera.WorldToViewportPoint(targetPosition);
-
-        // 保持角色在视野的 0.1 到 0.9 之间，以避免紧贴边缘
-        screenPoint.x = Mathf.Clamp(screenPoint.x, 0.1f, 0.9f);
-        screenPoint.y = Mathf.Clamp(screenPoint.y, 0.1f, 0.9f);
-
-        return camera.ViewportToWorldPoint(screenPoint);
+        Gizmos.color = Color.green;
+        Vector3 position = transform.position;
+        Gizmos.DrawWireCube(position, new Vector3(moveRangeX * 2, moveRangeY * 2, 1));
     }
+
+
+
 
 }

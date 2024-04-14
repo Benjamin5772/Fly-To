@@ -8,8 +8,8 @@ public class MainMenu : BaseWidget
     // 当点下这个按钮之后，调用开始游戏的接口
 
     public Camera mainMenuCamera;
-    public GameObject rotatingObject; // 需要旋转的游戏物体
-    public PlayerState playerState = new PlayerState();// Add reference to PlayerState
+    public GameObject rotatingObject; 
+    public PlayerState playerState = new PlayerState();// 为什么无法实现游戏开始后才移动
     public float screenMoveSpeed = 1.0f;
     public float cameraMoveTime = 1.5f;
 
@@ -24,7 +24,7 @@ public class MainMenu : BaseWidget
 
         if (gameStartUI != null) gameStartUI.SetActive(true);
         if (inGameUI != null) inGameUI.SetActive(false);
-       
+        
       
     }
 
