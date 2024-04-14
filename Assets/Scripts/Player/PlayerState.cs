@@ -20,6 +20,8 @@ public class PlayerState
     public bool GivePushForce = true ;
     public float ForwardForce = 0.04f;
 
+    public float lateralMoveRange = 2f;  // 左右移动的最大范围
+    public Vector3 movementAreaOffset = new Vector3(32, 0, 3.5f);  // 移动区域的偏移量
     // 血量
     // TODO
 

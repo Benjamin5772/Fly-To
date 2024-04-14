@@ -9,12 +9,10 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
-    private PlayerState playerState;
+    private PlayerState playerState = new PlayerState();
 
     // VFX
     // TODO
-    public float moveRangeX = 5.0f;  // x轴方向的移动范围
-    public float moveRangeY = 3.0f;  // y轴方向的移动范围
 
     //获取输入
     public Vector3 CurrentInput { get; private set; }
@@ -25,6 +23,8 @@ public class Character : MonoBehaviour
     {
         playerRigidbody = i_Rig;
         playerState = i_PS;
+        // 设置 Rigidbody 的初始位置为当前 Transform 的位置
+       // playerRigidbody.position = transform.position;
 
     }
 
@@ -49,11 +49,13 @@ public class Character : MonoBehaviour
         Vector3 movement = CurrentInput * playerState.MaxWalkSpeed * Time.fixedDeltaTime;
         Vector3 newPosition = playerRigidbody.position + movement;
 
-        // 限制新位置不超过设定范围
-        newPosition.x = Mathf.Clamp(newPosition.x, -moveRangeX, moveRangeX);
-        newPosition.y = Mathf.Clamp(newPosition.y, -moveRangeY, moveRangeY);
-
+        // 应用偏移和范围限制
+        float minX = -playerState.lateralMoveRange + playerState.movementAreaOffset.x;
+        float maxX = playerState.lateralMoveRange + playerState.movementAreaOffset.x;
+        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
         playerRigidbody.MovePosition(newPosition);
+
+        //移动到边缘后会随着边缘滑行
 
     }
 
@@ -98,12 +100,16 @@ public class Character : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-        Vector3 position = transform.position;
-        Gizmos.DrawWireCube(position, new Vector3(moveRangeX * 2, moveRangeY * 2, 1));
+        if (playerState == null)
+            return;
+
+        Gizmos.color = Color.red;
+        // 使用偏移更新中心位置
+        Vector3 center = new Vector3(0, 1, 0) + playerState.movementAreaOffset;
+        float width = playerState.lateralMoveRange * 2;
+        float height = 3;
+        Gizmos.DrawWireCube(center, new Vector3(width, height, 0.1f));
     }
-
-
 
 
 }
