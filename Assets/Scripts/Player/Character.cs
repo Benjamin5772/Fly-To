@@ -23,9 +23,16 @@ public class Character : MonoBehaviour
     {
         playerRigidbody = i_Rig;
         playerState = i_PS;
+        playerRigidbody.useGravity = false;
         // 设置 Rigidbody 的初始位置为当前 Transform 的位置
        // playerRigidbody.position = transform.position;
 
+    }
+
+    public void OnGameStart()
+    {
+        playerRigidbody.useGravity = true;
+        playerState.OnGameStart();
     }
 
     public void MoveUpdate()
@@ -33,9 +40,6 @@ public class Character : MonoBehaviour
         //移动到playercontroller
         Move();
     }
-
-
- 
 
     public void SetMovementInput(Vector3 input)
     {

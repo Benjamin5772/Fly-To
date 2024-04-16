@@ -17,7 +17,7 @@ public class PlayerState
     public float heightAdjustmentForce = 1.2f;//高度调整（自动）
    
     // forward force
-    public bool GivePushForce = true ;
+    public bool GivePushForce = false ;
     public float ForwardForce = 0.04f;
 
     public float lateralMoveRange = 2f;  // 左右移动的最大范围
@@ -25,14 +25,23 @@ public class PlayerState
     // 血量
     // TODO
 
+    private float MaxHealth = 100.0f;
+    private float CurrentHealth = 0.0f;
+
+    public void OnGameStart()
+    {
+        GivePushForce = true;
+        CurrentHealth = MaxHealth;
+    }
+
     public void CheckState()
     {
 
     }
 
-    public void Hurt()
+    public void Hurt(float i_Damage)
     {
-
+        CurrentHealth -= i_Damage;
     }
 
     public void SpeedUp()

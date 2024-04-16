@@ -29,30 +29,60 @@ public class HUDController : Singleton<HUDController>
     {
         // 打开Main menu ui，关闭所有别的UI
         if (mainMenu != null)
+        {
             mainMenu.ShowWidget();
+        }
+            
         if (playerInGameUI != null)
+        {
             playerInGameUI.HideWidget();
+        }
+            
         if (inGameMenu != null)
+        { 
             inGameMenu.HideWidget();
+        }   
     }
 
     public void OnGameStart()
     {
         // 关闭Main menu ui，打开PlayerInGameUI
         if (mainMenu != null)
+        {
             mainMenu.HideWidget();
+        }
+            
+        //if (playerInGameUI != null)
+            //playerInGameUI.ShowWidget();
+    }
+
+    public void OpenInGameMenu()
+    {
         if (playerInGameUI != null)
+        {
             playerInGameUI.ShowWidget();
-        if (inGameMenu != null)
-            inGameMenu.HideWidget();
+        }
+            
     }
 
     public void OnPlayerPauseGame()
     {
         // 可能关闭PlayerInGameUI，打开InGameMenu
-        if (playerInGameUI != null)
-            playerInGameUI.HideWidget();
-        if (inGameMenu != null)
+        //if (playerInGameUI != null)
+            //playerInGameUI.HideWidget();
+        if (inGameMenu != null && playerInGameUI != null)
+        {
             inGameMenu.ShowWidget();
+            playerInGameUI.HideWidget();
+        }
+    }
+
+    public void OnPlayerReleaseGame()
+    {
+        if (inGameMenu != null && playerInGameUI != null)
+        {
+            inGameMenu.HideWidget();
+            playerInGameUI.ShowWidget();
+        }
     }
 }

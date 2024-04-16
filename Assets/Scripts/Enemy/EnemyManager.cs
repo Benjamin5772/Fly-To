@@ -16,9 +16,19 @@ public class EnemyManager : MonoBehaviour
 
     private bool isSpawnEnemy = true;
 
-    private void Start()
+    public void OnGameStart()
     {
         StartCoroutine(SpawnEnemyRoutine());
+    }
+
+    public void OnGameEnd()
+    {
+        Cleaup();
+    }
+
+    private void Start()
+    {
+        //StartCoroutine(SpawnEnemyRoutine());
     }
 
     private IEnumerator SpawnEnemyRoutine()

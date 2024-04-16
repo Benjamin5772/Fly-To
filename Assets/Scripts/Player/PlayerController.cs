@@ -7,13 +7,15 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     private Character player = new Character();
-    private PlayerState playerStateChecker;
+    //private PlayerState playerStateChecker;
     private PlayerState playerState = new PlayerState();
 
     private Transform m_Transform;
 
 
     [SerializeField] private Transform followingTarget;
+
+    private bool IsGameStart = false;
 
     // Camera
     //抬升(x轴)
@@ -36,19 +38,32 @@ public class PlayerController : MonoBehaviour
     
     }
 
+    public void OnGameStart()
+    {
+        IsGameStart = true;
+        //playerState.OnGameStart();
+        player.OnGameStart();
+    }
+
 
     void Update()
     {
-        UpdateMovementInput();
+        if (IsGameStart)
+        {
+            UpdateMovementInput();
+        }
+            
         //UpdateStateInput();
     }
 
     private void FixedUpdate()
     {
-        player.MoveUpdate();
-        // 更新角色的旋转以匹配视角的偏航角
-        player.RotateCharacter(Yaw);
-
+        if (IsGameStart)
+        {
+            player.MoveUpdate();
+            // 更新角色的旋转以匹配视角的偏航角
+            player.RotateCharacter(Yaw);
+        }
     }
 
     //角色移动输入
@@ -88,18 +103,23 @@ public class PlayerController : MonoBehaviour
         //手柄控制
         Yaw += Input.GetAxis("CameraRateX");
         Pitch += Input.GetAxis("CameraRateY");
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.Instance.GamePauseAndReleaseFuntion();
+        }
         
     }
 
     //角色状态输入
-    private void UpdateStateInput()
-    {
-        playerStateChecker.CheckState();
-    }
+    //private void UpdateStateInput()
+    //{
+        //playerStateChecker.CheckState();
+    //}
 
     public void ApplyDamage(float i_Damage)
     {
-        //TODO
+        playerState.Hurt(i_Damage);
     }
 
     public void GetProp()
