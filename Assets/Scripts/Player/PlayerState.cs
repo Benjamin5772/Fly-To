@@ -20,13 +20,13 @@ public class PlayerState
     public bool GivePushForce = false ;
     public float ForwardForce = 0.04f;
 
-    public float lateralMoveRange = 2f;  // 左右移动的最大范围
+    public float lateralMoveRange = 0.5f;  // 左右移动的最大范围
     public Vector3 movementAreaOffset = new Vector3(32, 0, 3.5f);  // 移动区域的偏移量
     // 血量
     // TODO
 
-    private float MaxHealth = 100.0f;
-    private float CurrentHealth = 0.0f;
+    public float MaxHealth = 3.0f;
+    public float CurrentHealth = 0.0f;
 
     public void OnGameStart()
     {

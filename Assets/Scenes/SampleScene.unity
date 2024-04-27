@@ -6451,13 +6451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afd7622c85548146bcc680fa3525983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuCamera: {fileID: 574680245}
-  rotatingObject: {fileID: 1202484350}
-  screenMoveSpeed: 0.2
-  cameraMoveTime: 1.5
-  rotationAngle: {x: 0, y: 90, z: 0}
-  gameStartUI: {fileID: 1591139568}
-  inGameUI: {fileID: 1206886707}
 --- !u!4 &344061664
 Transform:
   m_ObjectHideFlags: 0
@@ -16233,9 +16226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetCamera: {fileID: 574680245}
-  inGameMenuObject: {fileID: 309963939}
-  gameStartUI: {fileID: 1591139568}
-  inGameUI: {fileID: 1206886707}
 --- !u!4 &639642628
 Transform:
   m_ObjectHideFlags: 0

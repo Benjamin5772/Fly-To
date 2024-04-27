@@ -6,10 +6,6 @@ public class InGameMenu : BaseWidget
 {
 
     public Camera targetCamera;
-    //public GameObject inGameMenuObject;
-    //public GameObject gameStartUI;
-    //public GameObject inGameUI;
-
     private Vector3 originalPosition;
     private Quaternion originalRotation;
 
@@ -32,11 +28,7 @@ public class InGameMenu : BaseWidget
     // Update is called once per frame
     void Update()
     {
-        // 监听ESC键
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-            //inGameMenuObject.SetActive(!inGameMenuObject.activeSelf);
-        //}
+       
 
     }
 
@@ -49,10 +41,6 @@ public class InGameMenu : BaseWidget
             targetCamera.transform.position = originalPosition;
             targetCamera.transform.rotation = originalRotation;
 
-            //将除了主菜单外的都隐藏
-            //if (inGameMenuObject != null) inGameMenuObject.SetActive(false);
-            //if (gameStartUI != null) gameStartUI.SetActive(true);
-            //if (inGameUI != null) inGameUI.SetActive(false);
         }
     }
 }

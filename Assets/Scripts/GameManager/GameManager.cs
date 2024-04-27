@@ -27,8 +27,8 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public Camera mainMenuCamera;
     public GameObject rotatingObject;
-    public PlayerState playerState = new PlayerState();// 为什么无法实现游戏开始后才移动
-    public float screenMoveSpeed = 1.0f;
+    public PlayerState playerState = new PlayerState();
+    public float screenMoveSpeed = 0.01f;
     public float cameraMoveTime = 1.5f;
     public Vector3 rotationAngle = new Vector3(0, 90, 0); // 可调的旋转角度
 
