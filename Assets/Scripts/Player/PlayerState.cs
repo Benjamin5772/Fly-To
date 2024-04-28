@@ -13,7 +13,7 @@ public class PlayerState
     public float MinUpForce = 2; // 上升最小力量(手动)
     public float MaxUpForce = 2.0f; // 上升最大力量(手动)
     // public float targetHeight = 1.4f;//目标高度（自动）
-    public float targetHeight = 0.35f;//目标高度（自动）
+    public float targetHeight = 0.3f;//目标高度（自动）
     public float heightAdjustmentForce = 1.2f;//高度调整（自动）
    
     // forward force
@@ -26,7 +26,10 @@ public class PlayerState
     // TODO
 
     public float MaxHealth = 3.0f;
-    public float CurrentHealth = 0.0f;
+    public float CurrentHealth = 3.0f;
+
+    private float hurtCooldown = 2.0f; // 冷却时间为2秒
+    private float lastHurtTime = -2.0f; // 上次受伤的时间
 
     public void OnGameStart()
     {
@@ -39,9 +42,14 @@ public class PlayerState
 
     }
 
-    public void Hurt(float i_Damage)
+    public void Hurt(float damage)
     {
-        CurrentHealth -= i_Damage;
+        if (Time.time >= lastHurtTime + hurtCooldown)
+        {
+            CurrentHealth -= damage;
+            lastHurtTime = Time.time;
+            Debug.Log("Player hurt. Current health: " + CurrentHealth);
+        }
     }
 
     public void SpeedUp()

@@ -6,7 +6,7 @@ public class Leaf : BaseEnemy
 {
 
     private Vector3 targetPosition;
-
+    public PlayerState playerState = new PlayerState();
     public float attackCooldown = 2f; // attack cd
     private float nextAttackTime = 0; // next attack
 
@@ -77,6 +77,12 @@ public class Leaf : BaseEnemy
         base.ApplyEffect();
         
         Debug.Log("Leaf hit the player, applying damage.");
+
+        if (Time.time >= nextAttackTime)
+        {
+            playerState.Hurt(1);
+            nextAttackTime = Time.time + attackCooldown;
+        }
     }
 
     // cd check
@@ -87,7 +93,8 @@ public class Leaf : BaseEnemy
         {
             if (Vector3.Distance(transform.position, target.transform.position) < 1f)
             {
-                ApplyEffect(); 
+                ApplyEffect();
+
                 nextAttackTime = Time.time + attackCooldown; // undate next attack
             }
         }
