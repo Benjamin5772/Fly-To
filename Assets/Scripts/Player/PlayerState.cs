@@ -23,13 +23,14 @@ public class PlayerState
     public float lateralMoveRange = 0.5f;  // 左右移动的最大范围
     public Vector3 movementAreaOffset = new Vector3(32, 0, 3.5f);  // 移动区域的偏移量
     // 血量
-    // TODO
-
     public float MaxHealth = 3.0f;
     public float CurrentHealth = 3.0f;
-
+    // 燃料
+    public float MaxFuel = 100.0f;
+    public float CurrentFuel = 100.0f;
+    //受伤冷却
     private float hurtCooldown = 2.0f; // 冷却时间为2秒
-    private float lastHurtTime = -2.0f; // 上次受伤的时间
+    private float lastHurtTime = -2.0f; 
 
     public void OnGameStart()
     {

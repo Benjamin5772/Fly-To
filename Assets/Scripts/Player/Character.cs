@@ -66,7 +66,7 @@ public class Character : MonoBehaviour
     public void RiseUp()
     {
         // 计算上升力
-        float upForceStrength = UnityEngine.Random.Range(playerState.MinUpForce, playerState.MaxUpForce);
+        float upForceStrength = UnityEngine.Random.Range(playerState.MinUpForce, playerState.MaxUpForce)* 0.1f;
         Vector3 upForce = playerState.RiseUpDirection * upForceStrength;
 
         playerRigidbody.AddForce(upForce);

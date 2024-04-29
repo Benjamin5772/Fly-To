@@ -95,6 +95,14 @@ public class PlayerController : MonoBehaviour
         else
         {
             player.FlyInAir(m_Transform, playerState.targetHeight, playerState.heightAdjustmentForce);
+            
+            if (playerState.CurrentFuel > 0)
+            {
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    player.RiseUp();
+                }
+            }
         }
 
         //鼠标控制
