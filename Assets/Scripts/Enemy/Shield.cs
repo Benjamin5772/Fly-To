@@ -42,7 +42,7 @@ public class Shield : BaseEnemy
         if (attachedShield != null)
         {
            
-            ShieldFollow(target);
+            ShieldFollow(target.gameObject);
         }
     }
 

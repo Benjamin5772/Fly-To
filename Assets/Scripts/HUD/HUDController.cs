@@ -20,8 +20,9 @@ public class HUDController : Singleton<HUDController>
         
     }
 
-    public void Init()
+    public void Init(PlayerState i_PlayerState)
     {
+        playerInGameUI.InitPlayerInGameUI(i_PlayerState);
         OnGameInit();
     }
 
@@ -84,5 +85,10 @@ public class HUDController : Singleton<HUDController>
             inGameMenu.HideWidget();
             playerInGameUI.ShowWidget();
         }
+    }
+
+    public void UpdateHealth()
+    {
+        playerInGameUI.UpdateHealthIcons();
     }
 }

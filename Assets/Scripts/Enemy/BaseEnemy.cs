@@ -6,8 +6,7 @@ public class BaseEnemy : MonoBehaviour
 {
     public float speed;
     public Mesh mesh; // delete
-    public string type;
-    public GameObject target;
+    public PlayerController target;
 
     //碰撞检测
     //TODO
