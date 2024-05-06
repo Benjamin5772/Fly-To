@@ -129,6 +129,21 @@ public class PlayerController : MonoBehaviour
     {
         playerState.Hurt(i_Damage);
         GameManager.Instance.UpdateHealth();
+        if (playerState.CurrentHealth <= 0)
+        {
+            // OnDead
+            OnDead();
+        }
+        else
+        {
+            SaveManager.Instance.OnLoad(this);
+        }
+    }
+
+    private void OnDead()
+    {
+        // 1. cleaup player(controller, character, playerstate)
+        // 2. 通知gamemanager进行cleanup
     }
 
     public void GetProp()
@@ -139,5 +154,18 @@ public class PlayerController : MonoBehaviour
     public PlayerState GetPlayerState()
     {
         return playerState;
+    }
+
+    public void ForceTeleport(GameObject i_Obj)
+    {
+        //根据i_Obj设置玩家位置
+    }
+
+    public void AddPlayerStateFlowerNumber(int i_Number)
+    {
+        if (playerState != null)
+        {
+            playerState.AddFlower(i_Number);
+        }
     }
 }

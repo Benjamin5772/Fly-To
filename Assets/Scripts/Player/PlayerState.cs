@@ -30,12 +30,16 @@ public class PlayerState
     public float CurrentFuel = 100.0f;
     //受伤冷却
     private float hurtCooldown = 2.0f; // 冷却时间为2秒
-    private float lastHurtTime = -2.0f; 
+    private float lastHurtTime = -2.0f;
+
+    //花朵计数器
+    private int flower_number = 0;
 
     public void OnGameStart()
     {
         GivePushForce = true;
         CurrentHealth = MaxHealth;
+        flower_number = 0;
     }
 
     public void CheckState()
@@ -56,5 +60,22 @@ public class PlayerState
     public void SpeedUp()
     {
 
+    }
+
+    public void AddFlower(int i_Number)
+    {
+        flower_number += i_Number;
+        CheckFlower();
+    }
+
+    private void CheckFlower()
+    {
+        if (flower_number >= 10)
+        {
+            flower_number -= 10;
+            CurrentHealth += 1.0f;
+            GameManager.Instance.UpdateHealth();
+            CheckFlower();
+        }
     }
 }

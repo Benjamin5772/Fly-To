@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject flowerPrefab;
     public float spawnInterval = 5f;
     public float spawnDistance = 10f;
     public float spawnWidth = 5f;
@@ -15,6 +16,9 @@ public class EnemyManager : MonoBehaviour
     private List<GameObject> enemies = new List<GameObject>();
     private bool isSpawnEnemy = true;
 
+    public List<GameObject> FlowerTransform = new List<GameObject>();
+    private List<Flower> Flowers = new List<Flower>();
+
     public void Init(PlayerController i_Player)
     {
         player = i_Player;
@@ -23,11 +27,38 @@ public class EnemyManager : MonoBehaviour
     public void OnGameStart()
     {
         StartCoroutine(SpawnEnemyRoutine());
+        ResetFlowers();
     }
 
     public void OnGameEnd()
     {
         Cleaup();
+    }
+
+    private void ResetFlowers()
+    {
+        for (int i = 0; i < FlowerTransform.Count; i++)
+        {
+            GameObject CurrentFlowerTransform = FlowerTransform[i];
+            // Init a flower prefab
+            // push new flower to Flowers
+        }
+    }
+
+    private void CleanupFLowers()
+    {
+        for (int i = 0; i < Flowers.Count; i++)
+        {
+            Flower CurrentFlower = Flowers[i];
+            // Delete
+        }
+
+        Flowers = new List<Flower>();
+    }
+
+    public void DeleteCurrentFlower(Flower i_CurrentFLower)
+    {
+        Flowers.Remove(i_CurrentFLower);
     }
 
     private void Start()
@@ -81,7 +112,8 @@ public class EnemyManager : MonoBehaviour
         {
             Destroy(enemy);
         }
-        enemies.Clear(); 
+        enemies.Clear();
+        CleanupFLowers();
     }
 }
 
