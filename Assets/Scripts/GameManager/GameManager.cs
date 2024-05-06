@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Searcher;
 using UnityEngine;
@@ -35,8 +36,8 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         //所有manager的init
-        HUDController.Init();
-
+        EnemyManager.Init(m_PlayerController);
+        HUDController.Init(m_PlayerController.GetPlayerState());
     }
 
     public void OnGameStart()
@@ -103,7 +104,7 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(cameraMoveTime);
         HUDController.OpenInGameMenu();
         m_PlayerController.OnGameStart();
-        //EnemyManager.OnGameStart();
+        EnemyManager.OnGameStart();
     }
 
     private IEnumerator RotateAndMoveCamera()
@@ -155,4 +156,22 @@ public class GameManager : Singleton<GameManager>
 
         obj.transform.rotation = targetRotation;
     }
+
+    // UI Update
+    // Update health bar
+
+    public void UpdateInGameUI(Enum i_UpdateType, UIData i_Data)
+    {
+
+    }
+    public void UpdateHealth()
+    {
+        HUDController.UpdateHealth();
+    }
+}
+
+public class UIData
+{
+    float health;
+    float fuel;
 }

@@ -14,6 +14,11 @@ public class PlayerInGameUI : BaseWidget
     private float iconSpacing = 150;  // Icon spacing
     private Vector2 initialPosition = new Vector2(-10, -10);  // Initial position of icons
 
+    public void InitPlayerInGameUI(PlayerState i_PlayerState)
+    {
+        playerState = i_PlayerState;
+    }
+
     void Start()
     {
         InitializeHealthIcons();
@@ -24,7 +29,7 @@ public class PlayerInGameUI : BaseWidget
     {
         if (playerState != null)
         {
-            for (int i = 0; i < playerState.MaxHealth; i++)
+            for (int i = 0; i < playerState.CurrentHealth; i++)
             {
                 GameObject icon = Instantiate(healthIconPrefab, canvasTransform);
                 icon.SetActive(true);
@@ -52,13 +57,13 @@ public class PlayerInGameUI : BaseWidget
         }
     }
 
-    void Update()
-    {
-        UpdateHealthIcons();
-        HandleFuelConsumption();
-    }
+    //void Update()
+    //{
+        //UpdateHealthIcons();
+        //HandleFuelConsumption();
+    //}
 
-    void UpdateHealthIcons()
+    public void UpdateHealthIcons()
     {
         for (int i = 0; i < healthIcons.Count; i++)
         {

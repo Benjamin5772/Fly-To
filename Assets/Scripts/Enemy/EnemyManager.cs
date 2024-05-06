@@ -10,11 +10,15 @@ public class EnemyManager : MonoBehaviour
     public float spawnDistance = 10f;
     public float spawnWidth = 5f;
     public float spawnHeight = 2f;
-    public GameObject player;
 
+    private PlayerController player;
     private List<GameObject> enemies = new List<GameObject>();
-
     private bool isSpawnEnemy = true;
+
+    public void Init(PlayerController i_Player)
+    {
+        player = i_Player;
+    }
 
     public void OnGameStart()
     {

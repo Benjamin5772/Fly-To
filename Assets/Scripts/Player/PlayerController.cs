@@ -128,10 +128,16 @@ public class PlayerController : MonoBehaviour
     public void ApplyDamage(float i_Damage)
     {
         playerState.Hurt(i_Damage);
+        GameManager.Instance.UpdateHealth();
     }
 
     public void GetProp()
     {
         //TODO
+    }
+
+    public PlayerState GetPlayerState()
+    {
+        return playerState;
     }
 }

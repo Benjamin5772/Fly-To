@@ -6,7 +6,6 @@ public class Leaf : BaseEnemy
 {
 
     private Vector3 targetPosition;
-    public PlayerState playerState = new PlayerState();
     public float attackCooldown = 2f; // attack cd
     private float nextAttackTime = 0; // next attack
 
@@ -16,9 +15,9 @@ public class Leaf : BaseEnemy
 
     // 随机方向间隔
     public float directionUpdateInterval = 2f; 
-    private float nextDirectionUpdateTime = 0; 
+    private float nextDirectionUpdateTime = 0;
 
-
+    public float Damage = 1f;
 
     void Start()
     {
@@ -36,7 +35,7 @@ public class Leaf : BaseEnemy
     {
         
         Move();
-        AttackTimeCheck();
+        //AttackTimeCheck();
 
     }
 
@@ -65,8 +64,10 @@ public class Leaf : BaseEnemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == target)
+        //Debug.Log("Player enter the trigger box!");
+        if (other.gameObject == target.gameObject)
         {
+            Debug.Log("Apply effect to player!");
             ApplyEffect();
         }
     }
@@ -80,26 +81,26 @@ public class Leaf : BaseEnemy
 
         if (Time.time >= nextAttackTime)
         {
-            playerState.Hurt(1);
+            target.ApplyDamage(Damage);
             nextAttackTime = Time.time + attackCooldown;
         }
     }
 
     // cd check
-    public override void AttackTimeCheck()
-    {
+    //public override void AttackTimeCheck()
+    //{
         
-        if (Time.time >= nextAttackTime)
-        {
-            if (Vector3.Distance(transform.position, target.transform.position) < 1f)
-            {
-                ApplyEffect();
+        //if (Time.time >= nextAttackTime)
+        //{
+            //if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+            //{
+               // ApplyEffect();
 
-                nextAttackTime = Time.time + attackCooldown; // undate next attack
-            }
-        }
+                //nextAttackTime = Time.time + attackCooldown; // undate next attack
+            //}
+        //}
 
-    }
+    //}
 }
 
 
