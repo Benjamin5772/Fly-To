@@ -16,6 +16,7 @@ public class Flower : BaseEnemy
         //Debug.Log("Player enter the trigger box!");
         if (other.gameObject == target.gameObject)
         {
+            Debug.Log("Player hit flower!");
             ApplyEffect();
         }
     }

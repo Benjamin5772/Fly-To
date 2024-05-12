@@ -41,7 +41,14 @@ public class EnemyManager : MonoBehaviour
         {
             GameObject CurrentFlowerTransform = FlowerTransform[i];
             // Init a flower prefab
+            GameObject flowerInstance = Instantiate(flowerPrefab, CurrentFlowerTransform.transform.position, Quaternion.identity);
             // push new flower to Flowers
+            Flower flowerScript = flowerInstance.GetComponent<Flower>();
+            if (flowerScript != null)
+            {
+                flowerScript.Init(this);
+                Flowers.Add(flowerScript);
+            }
         }
     }
 
@@ -51,6 +58,7 @@ public class EnemyManager : MonoBehaviour
         {
             Flower CurrentFlower = Flowers[i];
             // Delete
+            Destroy(CurrentFlower.gameObject);
         }
 
         Flowers = new List<Flower>();
