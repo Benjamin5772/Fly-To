@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SaveObject : MonoBehaviour
 {
+    public int SaveObjectID;
     public GameObject save_location;
 
     // Start is called before the first frame update

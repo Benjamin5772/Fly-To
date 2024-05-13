@@ -168,4 +168,24 @@ public class PlayerController : MonoBehaviour
             playerState.AddFlower(i_Number);
         }
     }
+
+    public float GetPlayerHealth()
+    {
+        return playerState.CurrentHealth;
+    }
+
+    public int GetPlayerFlowerNumber()
+    {
+        return playerState.GetFlowerNumber();
+    }
+
+    public void ForceUpdatePlayerHealth(float i_NewHealth)
+    {
+        playerState.CurrentHealth = i_NewHealth;
+    }
+
+    public void ForceUpdatePlayerFlowerNumber(int i_NewFlowerNumber)
+    {
+        playerState.ForceSetFlower(i_NewFlowerNumber);
+    }
 }

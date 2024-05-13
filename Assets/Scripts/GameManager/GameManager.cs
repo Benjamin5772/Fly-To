@@ -63,6 +63,20 @@ public class GameManager : Singleton<GameManager>
         // Hud and playercontroller ongameend function call;
     }
 
+    public void OnGameReload(SaveDataStr i_SDS)
+    {
+        // 更新玩家血量
+        m_PlayerController.ForceUpdatePlayerHealth(i_SDS.Health);
+        UpdateHealth();
+        // 更新玩家save object
+        SaveManager.Instance.LoadFromSaveData(i_SDS.SaveObjectID, m_PlayerController);
+        // 更新玩家flowernumber
+        m_PlayerController.ForceUpdatePlayerFlowerNumber(i_SDS.FlowerNumber);
+
+        // Start the game
+        // TODO
+    }
+
     public void Exit()
     {
         // 退出游戏
@@ -168,6 +182,22 @@ public class GameManager : Singleton<GameManager>
     {
         HUDController.UpdateHealth();
     }
+
+    public float GetPlayerHealth()
+    {
+        float RetVal = 0.0f;
+        RetVal = m_PlayerController.GetPlayerHealth();
+        return RetVal;
+    }
+
+    public int GetPlayerFlowerNumber()
+    {
+        int RetVal = 0;
+        RetVal = m_PlayerController.GetPlayerFlowerNumber();
+        return RetVal;
+    }
+
+
 }
 
 public class UIData

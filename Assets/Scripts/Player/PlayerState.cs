@@ -68,6 +68,11 @@ public class PlayerState
         CheckFlower();
     }
 
+    public void ForceSetFlower(int i_NewNumber)
+    {
+        flower_number = i_NewNumber;
+    }
+
     private void CheckFlower()
     {
         if (flower_number >= 10)
@@ -77,5 +82,10 @@ public class PlayerState
             GameManager.Instance.UpdateHealth();
             CheckFlower();
         }
+    }
+
+    public int GetFlowerNumber()
+    {
+        return flower_number; 
     }
 }
