@@ -9,7 +9,15 @@ public class BossBT : Tree
 
     protected override Node SetupTree()
     {
-        Node node = new Node();
+        _blackboard.SetData("BossPhase", 1);
+        Node node = new Selector(new List<Node>
+        {
+            new Sequence(new List<Node>
+            {
+                new CheckIfBossPhaseOne(_blackboard)
+            }),
+            new Sequence() 
+        });
 
         return node;
     }

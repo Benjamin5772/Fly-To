@@ -8,8 +8,11 @@ namespace BehaviorTree
     {
         private Node root = null;
 
+        protected Blackboard _blackboard = null;
+
         protected void Start()
         {
+            _blackboard = GetComponent<Blackboard>();
             root = SetupTree();
         }
 
