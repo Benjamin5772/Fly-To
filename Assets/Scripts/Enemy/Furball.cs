@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Furball : MonoBehaviour
+public class Furball : BaseEnemy
 {
-    public float speed = 10.0f;
     public int bouncesRemaining = 3;
 
     private Rigidbody rb;

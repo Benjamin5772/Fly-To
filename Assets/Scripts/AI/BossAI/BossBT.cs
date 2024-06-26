@@ -1,22 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using BehaviorTree;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
-public class BossBT : Tree
+public class BossBT : BehaviorTree.Tree
 {
     // 静态数据
     //public static float speed = 10.0f;
 
-    protected override Node SetupTree()
+    public float BossPhaseOneShootDuration = 5.0f;
+    public float BossPhaseTwoShootDuration = 3.0f;
+
+    public GameObject FurballRef;
+
+    protected override BehaviorTree.Node SetupTree()
     {
         _blackboard.SetData("BossPhase", 1);
-        Node node = new Selector(new List<Node>
+        PlayerController m_PlayerController = GameManager.Instance.m_PlayerController;
+        _blackboard.SetData("PlayerRef", m_PlayerController);
+
+        BehaviorTree.Node node = new Selector(new List<BehaviorTree.Node>
         {
-            new Sequence(new List<Node>
+            new Sequence(new List<BehaviorTree.Node>
             {
-                new CheckIfBossPhaseOne(_blackboard)
+                new CheckIfBossPhaseMatch(_blackboard, 1),
+                new FollowPlayer(_blackboard, transform),
+                new CheckIfCanShoot(_blackboard, BossPhaseOneShootDuration),
+                new Shoot(_blackboard, FurballRef, 1)
             }),
-            new Sequence() 
+            new Sequence(new List<BehaviorTree.Node>
+            {
+                new CheckIfBossPhaseMatch(_blackboard, 2),
+                new FollowPlayer(_blackboard, transform),
+                new CheckIfCanShoot(_blackboard, BossPhaseTwoShootDuration),
+                new Shoot(_blackboard, FurballRef, 2)
+            }) 
         });
 
         return node;
