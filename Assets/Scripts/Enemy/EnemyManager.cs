@@ -19,6 +19,8 @@ public class EnemyManager : MonoBehaviour
     public List<GameObject> FlowerTransform = new List<GameObject>();
     private List<Flower> Flowers = new List<Flower>();
 
+    public BossBT bossRef;
+
     public void Init(PlayerController i_Player)
     {
         player = i_Player;
@@ -122,6 +124,11 @@ public class EnemyManager : MonoBehaviour
         }
         enemies.Clear();
         CleanupFLowers();
+    }
+
+    public void WakeUpBoss()
+    {
+        bossRef.WakeUpBoss();
     }
 }
 

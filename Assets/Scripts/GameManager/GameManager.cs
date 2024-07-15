@@ -22,6 +22,8 @@ public class GameManager : Singleton<GameManager>
 
     //public Database m_Data;
 
+    //boss的初始化和唤醒
+    //TODO
 
     /// <summary>
     /// Camera control

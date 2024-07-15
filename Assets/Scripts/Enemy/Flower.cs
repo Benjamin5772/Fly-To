@@ -11,15 +11,15 @@ public class Flower : BaseEnemy
         m_EnemyManager = i_EnemyManager;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("Player enter the trigger box!");
-        if (other.gameObject == target.gameObject)
-        {
-            Debug.Log("Player hit flower!");
-            ApplyEffect();
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //Debug.Log("Player enter the trigger box!");
+    //    if (other.gameObject == target.gameObject)
+    //    {
+    //        Debug.Log("Player hit flower!");
+    //        ApplyEffect();
+    //    }
+    //}
 
     // Ð§¹ûÂß¼­
     public override void ApplyEffect()

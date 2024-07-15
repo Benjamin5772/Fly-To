@@ -36,4 +36,19 @@ public class BaseEnemy : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //Debug.Log("Player enter the trigger box!");
+        if (other.gameObject == target.gameObject)
+        {
+            Debug.Log("Apply effect to player!");
+            ApplyEffect();
+        }
+    }
+
+    public void TriggerAnimationEvent(string i_s)
+    {
+        string[] stringAfterSplit = i_s.Split(',');
+    }
 }

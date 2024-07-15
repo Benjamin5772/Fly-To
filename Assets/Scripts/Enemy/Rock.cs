@@ -8,22 +8,18 @@ public class Rock : BaseEnemy
     public float damage = 10f; // 伤害
     public float fuelReduction = 5f; // 减少的燃料量
 
-    private void OnCollisionEnter(Collision collision)
-    {
+    //private void OnCollisionEnter(Collision collision)
+    //{
        
-        if (collision.gameObject == target)
-        {
-            ApplyEffect();
+    //    if (collision.gameObject == target)
+    //    {
+    //        ApplyEffect();
 
-            // 计算方向
-            Vector3 pushDirection = CalculatePushDirection(transform.position, collision.transform.position);
-
-            // 应用推力
-            ApplyPushForce(collision.gameObject, pushDirection, pushForce);
+         
 
            
-        }
-    }
+    //    }
+    //}
 
     Vector3 CalculatePushDirection(Vector3 source, Vector3 target)
     {
@@ -45,5 +41,11 @@ public class Rock : BaseEnemy
 
         // 成伤害和减少燃料
         Debug.Log($"Rock hit the player, causing {damage} damage and reducing fuel by {fuelReduction}.");
+
+        // 计算方向
+        Vector3 pushDirection = CalculatePushDirection(transform.position, target.transform.position);
+
+        // 应用推力
+        ApplyPushForce(target.gameObject, pushDirection, pushForce);
     }
 }

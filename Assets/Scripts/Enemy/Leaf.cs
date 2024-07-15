@@ -1,19 +1,19 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Leaf : BaseEnemy
+public class Leaf : ReboundEnemy
 {
 
     private Vector3 targetPosition;
     public float attackCooldown = 2f; // attack cd
     private float nextAttackTime = 0; // next attack
 
-    // ÇúÕÛÒÆ¶¯
+    // Ã‡ÃºÃ•Ã›Ã’Ã†Â¶Â¯
     public float moveRandomness = 1f; 
     private Vector3 randomDirection; 
 
-    // Ëæ»ú·½Ïò¼ä¸ô
+    // Ã‹Ã¦Â»ÃºÂ·Â½ÃÃ²Â¼Ã¤Â¸Ã´
     public float directionUpdateInterval = 2f; 
     private float nextDirectionUpdateTime = 0;
 
@@ -23,7 +23,7 @@ public class Leaf : BaseEnemy
     {
         Spawn(); 
             
-        //½ö¼ÇÂ¼Ò»´ÎÎ»ÖÃ
+        //Â½Ã¶Â¼Ã‡Ã‚Â¼Ã’Â»Â´ÃŽÃŽÂ»Ã–Ãƒ
         if (target != null)
         {
             targetPosition = target.transform.position;
@@ -47,7 +47,7 @@ public class Leaf : BaseEnemy
             moveDirection = moveDirection.normalized; 
             transform.position += moveDirection * speed * Time.deltaTime;
 
-            // ¼ì²é¸üÐÂÊ±¼ä
+            // Â¼Ã¬Â²Ã©Â¸Ã¼ÃÃ‚ÃŠÂ±Â¼Ã¤
             if (Time.time >= nextDirectionUpdateTime)
             {
                 UpdateRandomDirection();
@@ -62,17 +62,17 @@ public class Leaf : BaseEnemy
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("Player enter the trigger box!");
-        if (other.gameObject == target.gameObject)
-        {
-            Debug.Log("Apply effect to player!");
-            ApplyEffect();
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //Debug.Log("Player enter the trigger box!");
+    //    if (other.gameObject == target.gameObject)
+    //    {
+    //        Debug.Log("Apply effect to player!");
+    //        ApplyEffect();
+    //    }
+    //}
 
-    // Ð§¹ûÂß¼­
+    // ÃÂ§Â¹Ã»Ã‚ÃŸÂ¼Â­
     public override void ApplyEffect()
     {
         base.ApplyEffect();
@@ -89,18 +89,24 @@ public class Leaf : BaseEnemy
     // cd check
     //public override void AttackTimeCheck()
     //{
-        
-        //if (Time.time >= nextAttackTime)
-        //{
-            //if (Vector3.Distance(transform.position, target.transform.position) < 1f)
-            //{
-               // ApplyEffect();
 
-                //nextAttackTime = Time.time + attackCooldown; // undate next attack
-            //}
-        //}
+    //if (Time.time >= nextAttackTime)
+    //{
+    //if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+    //{
+    // ApplyEffect();
+
+    //nextAttackTime = Time.time + attackCooldown; // undate next attack
+    //}
+    //}
 
     //}
+
+    public override void Rebound()
+    {
+        base.Rebound();
+        //æ‰§è¡Œå¼¹åï¼Œæ¶ˆå¤±
+    }
 }
 
 

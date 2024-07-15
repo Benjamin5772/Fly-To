@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
 
     private Transform m_Transform;
 
-
     [SerializeField] private Transform followingTarget;
 
     private bool IsGameStart = false;
@@ -22,6 +21,11 @@ public class PlayerController : MonoBehaviour
     public float Pitch { get; private set; }
     //环视(y轴)
     public float Yaw { get; private set; }
+
+    // 弹反相关
+    // 可弹反对象
+    private ReboundEnemy currentReboundEnemy = null;
+    private bool canRebound = false;
 
     private void Awake()
     {
@@ -187,5 +191,17 @@ public class PlayerController : MonoBehaviour
     public void ForceUpdatePlayerFlowerNumber(int i_NewFlowerNumber)
     {
         playerState.ForceSetFlower(i_NewFlowerNumber);
+    }
+
+    public void SetCurrentReboundEnemy(ReboundEnemy i_reboundEnemy)
+    {
+        currentReboundEnemy = i_reboundEnemy;
+        canRebound = true;
+    }
+
+    public void CleanUpCurrentReboundEnemy()
+    {
+        currentReboundEnemy = null;
+        canRebound = false;
     }
 }

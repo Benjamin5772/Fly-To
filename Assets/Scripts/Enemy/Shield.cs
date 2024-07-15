@@ -46,18 +46,18 @@ public class Shield : BaseEnemy
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == target) 
-        {
-            ApplyEffect(); // 应用免疫伤害效果
-            if (attachedShield == null) 
-            {
-                attachedShield = gameObject; 
-                StartCoroutine(RemoveAfterDelay(5f)); // 5秒后移除护盾
-            }
-        }
-    }
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject == target) 
+    //    {
+    //        ApplyEffect(); // 应用免疫伤害效果
+    //        if (attachedShield == null) 
+    //        {
+    //            attachedShield = gameObject; 
+    //            StartCoroutine(RemoveAfterDelay(5f)); // 5秒后移除护盾
+    //        }
+    //    }
+    //}
 
     //护盾跟随玩家功能
     void ShieldFollow(GameObject followTarget)
@@ -81,5 +81,11 @@ public class Shield : BaseEnemy
     {
         // 实现免疫伤害效果
         Debug.Log("Apply hurt immunity");
+
+        if (attachedShield == null)
+        {
+            attachedShield = gameObject;
+            StartCoroutine(RemoveAfterDelay(5f)); // 5秒后移除护盾
+        }
     }
 }
